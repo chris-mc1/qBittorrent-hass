@@ -11,6 +11,7 @@ torrent_info:
         text:
     filter:
       name: state
+      description: Filter Torrent by state
       selector:
         select:
           options:
