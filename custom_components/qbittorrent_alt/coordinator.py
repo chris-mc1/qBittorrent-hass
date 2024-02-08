@@ -32,8 +32,6 @@ class QBittorrentDataCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         )
 
     async def _async_update_data(self) -> dict[str, Any]:
-        if self.client.is_closed():
-            self.client._http = aiohttp.ClientSession()
         try:
             main_data = await self.client.sync.maindata()
             downloading = 0
