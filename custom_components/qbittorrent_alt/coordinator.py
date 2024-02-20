@@ -6,7 +6,7 @@ import aiohttp
 from aioqbt.client import APIClient
 from aioqbt.exc import LoginError
 from homeassistant.core import HomeAssistant
-from homeassistant.exceptions import ConfigEntryError
+from homeassistant.exceptions import ConfigEntryAuthFailed
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
@@ -69,4 +69,4 @@ class QBittorrentDataCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                 "longest_eta": longest_eta,
             }
         except LoginError as exc:
-            raise ConfigEntryError("Invalid authentication") from exc
+            raise ConfigEntryAuthFailed("Invalid authentication") from exc
