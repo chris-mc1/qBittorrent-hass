@@ -1,4 +1,3 @@
-import logging
 from os import path
 
 from aiohttp.client_exceptions import ClientConnectorError
@@ -23,8 +22,6 @@ from homeassistant.helpers.entity import DeviceInfo
 from .const import DOMAIN, PLATFORMS
 from .coordinator import QBittorrentDataCoordinator
 from .helpers import get_torrent_info, setup_client
-
-_LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:

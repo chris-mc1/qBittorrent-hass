@@ -26,6 +26,7 @@ async def setup_client(
             ssl=ssl_context,
             http=client_session,
         )
+        # pylint: disable-next=protected-access
         client._http_owner = True  # Let aioqbt manage the ClientSession
         await client.app.version()
         return client

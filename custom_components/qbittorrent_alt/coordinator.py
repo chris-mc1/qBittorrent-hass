@@ -2,7 +2,6 @@ import logging
 from datetime import timedelta
 from typing import Any
 
-import aiohttp
 from aioqbt.client import APIClient
 from aioqbt.exc import LoginError
 from homeassistant.core import HomeAssistant
