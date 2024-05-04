@@ -3,6 +3,7 @@ import ssl
 from aiohttp import ClientConnectorError, ClientSession, CookieJar
 from aioqbt.api.types import TorrentInfo
 from aioqbt.client import APIClient, create_client
+from aioqbt.exc import APIError
 from homeassistant.const import STATE_IDLE
 
 from .coordinator import QBittorrentDataCoordinator
@@ -30,7 +31,7 @@ async def setup_client(
         client._http_owner = True  # Let aioqbt manage the ClientSession
         await client.app.version()
         return client
-    except ClientConnectorError as err:
+    except (ClientConnectorError, APIError) as err:
         await client_session.close()  # Manuel close ClientSession when client setup fails
         raise err
 

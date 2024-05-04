@@ -3,7 +3,7 @@ from datetime import timedelta
 from typing import Any
 
 from aioqbt.client import APIClient
-from aioqbt.exc import LoginError
+from aioqbt.exc import APIError, LoginError
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryAuthFailed
 from homeassistant.helpers.entity import DeviceInfo
@@ -69,3 +69,5 @@ class QBittorrentDataCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             }
         except LoginError as exc:
             raise ConfigEntryAuthFailed("Invalid authentication") from exc
+        except APIError:
+            pass

@@ -1,7 +1,7 @@
 from os import path
 
 from aiohttp.client_exceptions import ClientConnectorError
-from aioqbt.exc import LoginError
+from aioqbt.exc import APIError, LoginError
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     CONF_NAME,
@@ -53,10 +53,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
             entry.data[CONF_PASSWORD],
             entry.data[CONF_VERIFY_SSL],
         )
-        print(client.closed)
     except LoginError as err:
+
         raise ConfigEntryAuthFailed("Invalid credentials") from err
-    except ClientConnectorError as err:
+    except (ClientConnectorError, APIError) as err:
         raise ConfigEntryNotReady("Failed to connect") from err
 
     coordinator = QBittorrentDataCoordinator(
