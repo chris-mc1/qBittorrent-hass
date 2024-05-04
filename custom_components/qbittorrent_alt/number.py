@@ -1,5 +1,4 @@
 from collections.abc import Callable, Coroutine
-from dataclasses import dataclass
 
 from homeassistant.components.number import (
     NumberDeviceClass,
@@ -18,15 +17,11 @@ from .const import DOMAIN
 from .coordinator import QBittorrentDataCoordinator
 
 
-@dataclass
-class QBittorrentMixin:
+class QBittorrentNumberEntityDescription(
+    NumberEntityDescription, frozen_or_thawed=True
+):
     value_fn: Callable[[QBittorrentDataCoordinator], StateType]
     set_value_fn: Callable[[QBittorrentDataCoordinator, float], Coroutine]
-
-
-@dataclass
-class QBittorrentNumberEntityDescription(NumberEntityDescription, QBittorrentMixin):
-    pass
 
 
 NUMBER_TYPES: tuple[QBittorrentNumberEntityDescription, ...] = (
