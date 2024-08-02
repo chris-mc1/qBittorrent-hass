@@ -37,9 +37,8 @@ NUMBER_TYPES: tuple[QBittorrentNumberEntityDescription, ...] = (
             "dl_rate_limit"
         ]
         / 1024,
-        set_value_fn=lambda coordinator, value: coordinator.client.transfer.set_download_limit(
-            value * 1024
-        ),
+        set_value_fn=lambda coordinator,
+        value: coordinator.client.transfer.set_download_limit(value * 1024),
         entity_category=EntityCategory.CONFIG,
         entity_registry_enabled_default=False,
     ),
@@ -55,9 +54,8 @@ NUMBER_TYPES: tuple[QBittorrentNumberEntityDescription, ...] = (
             "up_rate_limit"
         ]
         / 1024,
-        set_value_fn=lambda coordinator, value: coordinator.client.transfer.set_download_limit(
-            value * 1024
-        ),
+        set_value_fn=lambda coordinator,
+        value: coordinator.client.transfer.set_download_limit(value * 1024),
         entity_category=EntityCategory.CONFIG,
         entity_registry_enabled_default=False,
     ),
