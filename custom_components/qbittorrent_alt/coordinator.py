@@ -33,6 +33,14 @@ class QBittorrentDataCoordinator(DataUpdateCoordinator[dict[str, Any]]):
     async def _async_update_data(self) -> dict[str, Any]:
         try:
             main_data = await self.client.sync.maindata()
+            if self.data and (
+                main_data.server_state["dl_info_data"]
+                < self.data["sync"].server_state["dl_info_data"]
+                or main_data.server_state["up_info_data"]
+                < self.data["sync"].server_state["up_info_data"]
+            ):
+                # qbittorrent restarted, skipping first update
+                main_data = self.data["sync"]
             downloading = 0
             seeding = 0
             paused = 0
