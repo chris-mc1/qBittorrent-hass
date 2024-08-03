@@ -28,6 +28,7 @@ class QBittorrentDataCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         """Initialize coordinator."""
         self.client = client
         self.device_info = device_info
+        self.skiped_update = False
         super().__init__(
             hass,
             _LOGGER,
@@ -45,7 +46,12 @@ class QBittorrentDataCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                 < self.data["sync"].server_state["up_info_data"]
             ):
                 # qbittorrent restarted, skipping first update
-                main_data = self.data["sync"]
+                if self.skiped_update:
+                    # already skipped
+                    self.skiped_update = False
+                else:
+                    main_data = self.data["sync"]
+                    self.skiped_update = True
             downloading = 0
             seeding = 0
             paused = 0
