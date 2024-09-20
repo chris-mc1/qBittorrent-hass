@@ -5,15 +5,15 @@ from typing import TYPE_CHECKING
 from homeassistant.components.button import ButtonEntity, ButtonEntityDescription
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import DOMAIN
 from .coordinator import QBittorrentDataCoordinator
 
 if TYPE_CHECKING:
     from collections.abc import Callable, Coroutine
 
-    from homeassistant.config_entries import ConfigEntry
     from homeassistant.core import HomeAssistant
     from homeassistant.helpers.entity_platform import AddEntitiesCallback
+
+    from . import QBittorrentConfigEntry
 
 
 class QBittorrentButtonEntityDescription(
@@ -40,10 +40,10 @@ BUTTON_TYPES: tuple[QBittorrentButtonEntityDescription, ...] = (
 
 async def async_setup_entry(
     hass: HomeAssistant,
-    config_entry: ConfigEntry,
+    config_entry: QBittorrentConfigEntry,
     async_add_entites: AddEntitiesCallback,
 ) -> None:
-    coordinator: QBittorrentDataCoordinator = hass.data[DOMAIN][config_entry.entry_id]
+    coordinator = config_entry.runtime_data
     entities = [
         QBittorrentNumber(description, coordinator, config_entry)
         for description in BUTTON_TYPES
@@ -58,7 +58,7 @@ class QBittorrentNumber(CoordinatorEntity[QBittorrentDataCoordinator], ButtonEnt
         self,
         description: QBittorrentButtonEntityDescription,
         coordinator: QBittorrentDataCoordinator,
-        config_entry: ConfigEntry,
+        config_entry: QBittorrentConfigEntry,
     ) -> None:
         super().__init__(coordinator)
         self.entity_description = description
