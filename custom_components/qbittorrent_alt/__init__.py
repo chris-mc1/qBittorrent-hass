@@ -1,8 +1,10 @@
+from __future__ import annotations
+
 from os import path
+from typing import TYPE_CHECKING
 
 from aiohttp.client_exceptions import ClientConnectorError
 from aioqbt.exc import APIError, LoginError
-from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import (
     CONF_NAME,
     CONF_PASSWORD,
@@ -22,6 +24,9 @@ from homeassistant.helpers.entity import DeviceInfo
 from .const import DOMAIN, PLATFORMS
 from .coordinator import QBittorrentDataCoordinator
 from .helpers import get_torrent_info, setup_client
+
+if TYPE_CHECKING:
+    from homeassistant.config_entries import ConfigEntry
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:

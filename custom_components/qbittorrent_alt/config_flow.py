@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from os import path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import voluptuous as vol
 from aiohttp.client_exceptions import ClientConnectorError
@@ -12,10 +14,12 @@ from homeassistant.const import (
     CONF_USERNAME,
     CONF_VERIFY_SSL,
 )
-from homeassistant.data_entry_flow import FlowResult
 
 from .const import DEFAULT_NAME, DEFAULT_URL, DOMAIN
 from .helpers import setup_client
+
+if TYPE_CHECKING:
+    from homeassistant.data_entry_flow import FlowResult
 
 USER_DATA_SCHEMA = vol.Schema(
     {
