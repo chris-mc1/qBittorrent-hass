@@ -38,7 +38,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: QBittorrentConfigEntry) 
         torrent_hash = call.data.get("hash", "all")
         if torrent_hash not in ("", "all"):
             torrent = await coordinator.client.torrents.info(hashes=[torrent_hash])
-            return get_torrent_info(torrent)
+            return get_torrent_info(torrent[0])
         torrents = await coordinator.client.torrents.info(
             filter=call.data.get("filter", None)
         )
