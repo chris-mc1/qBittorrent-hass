@@ -53,8 +53,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: QBittorrentConfigEntry) 
     try:
         client = await setup_client(
             path.join(entry.data[CONF_URL], "api/v2"),  # noqa: PTH118
-            entry.data[CONF_USERNAME],
-            entry.data[CONF_PASSWORD],
+            entry.data.get(CONF_USERNAME),
+            entry.data.get(CONF_PASSWORD),
             entry.data[CONF_VERIFY_SSL],
         )
     except LoginError as err:

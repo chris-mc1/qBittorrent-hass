@@ -35,9 +35,8 @@ async def setup_client(
         client._http_owner = True  # Let aioqbt manage the ClientSession  # noqa: SLF001
         await client.app.version()
     except (ClientConnectorError, APIError) as err:
-        await (
-            client_session.close()
-        )  # Manuel close ClientSession when client setup fails
+        # Manuel close ClientSession when client setup fails
+        await client_session.close()
         raise err from err
     else:
         return client
