@@ -1,6 +1,4 @@
 {
-    "name": "qBittorrent Alt",
-    "filename": "my_super_awesome_thing.js",
-    "render_readme": true,
-    "homeassistant": "2023.11.0"
-  }
+  "name": "qBittorrent Alt",
+  "homeassistant": "2024.11.0"
+}
