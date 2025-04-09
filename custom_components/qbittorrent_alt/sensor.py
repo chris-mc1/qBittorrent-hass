@@ -181,7 +181,6 @@ SENSOR_TYPES: tuple[QBittorrentSensorEntityDescription, ...] = (
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda coordinator: coordinator.data["paused"],
     ),
-    ),
     QBittorrentSensorEntityDescription(
         key="queued",
         name="Queued",
