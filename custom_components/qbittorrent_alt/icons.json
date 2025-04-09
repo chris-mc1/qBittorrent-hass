@@ -68,6 +68,9 @@
             "paused": {
                 "default": "mdi:pause"
             },
+            "queued": {
+                "default": "mdi:tray-full"
+            },
             "stalled": {
                 "default": "mdi:download-off"
             },
