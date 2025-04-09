@@ -55,6 +55,7 @@ class QBittorrentDataCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             downloading = 0
             seeding = 0
             paused = 0
+            queued = 0
             stalled = 0
             uploading = 0
             longest_eta = 0
@@ -69,8 +70,10 @@ class QBittorrentDataCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                     seeding += 1
                 if torrent["state"] == "uploading":
                     uploading += 1
-                if torrent["state"] == "pausedUP" or torrent["state"] == "pausedDL":
+                if torrent["state"] == "stoppedDL":
                     paused += 1
+                if torrent["state"] == "queuedDL":
+                    queued += 1
                 if torrent["state"] == "stalledDL":
                     stalled += 1
                 if torrent["eta"] != 8640000 and torrent["eta"] > longest_eta:
@@ -82,6 +85,7 @@ class QBittorrentDataCoordinator(DataUpdateCoordinator[dict[str, Any]]):
                 "seeding": seeding,
                 "uploading": uploading,
                 "paused": paused,
+                "queued": queued,
                 "stalled": stalled,
                 "total": len(main_data.torrents),
                 "longest_eta": longest_eta,

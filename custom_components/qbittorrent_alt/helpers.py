@@ -47,7 +47,7 @@ def get_qbittorrent_state(coordinator: QBittorrentDataCoordinator) -> str:
     upload = coordinator.data["sync"].server_state["up_info_speed"]
 
     if upload > 0 and download > 0:
-        return "up_down"
+        return "downloading and seeding"
     if upload > 0 and download == 0:
         return "seeding"
     if upload == 0 and download > 0:

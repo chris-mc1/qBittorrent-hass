@@ -44,7 +44,7 @@ SENSOR_TYPES: tuple[QBittorrentSensorEntityDescription, ...] = (
         name="Status",
         device_class=SensorDeviceClass.ENUM,
         value_fn=get_qbittorrent_state,
-        options=["up_down", "seeding", "downloading", STATE_IDLE],
+        options=["downloading and seeding", "seeding", "downloading", STATE_IDLE],
     ),
     QBittorrentSensorEntityDescription(
         key="download_speed",
@@ -180,6 +180,14 @@ SENSOR_TYPES: tuple[QBittorrentSensorEntityDescription, ...] = (
         icon="mdi:pause",
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda coordinator: coordinator.data["paused"],
+    ),
+    ),
+    QBittorrentSensorEntityDescription(
+        key="queued",
+        name="Queued",
+        icon="mdi:tray-full",
+        state_class=SensorStateClass.MEASUREMENT,
+        value_fn=lambda coordinator: coordinator.data["queued"],
     ),
     QBittorrentSensorEntityDescription(
         key="stalled",
